@@ -93,3 +93,6 @@
 .dark-mode .profile-wrapper h1 {
   color: var(--light-blue);
 }
+.dark-mode .empty-invoice-notice h1 {
+  color: white;
+}

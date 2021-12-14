@@ -3,15 +3,16 @@ import { Link, useParams } from "react-router-dom";
 import back from "./assets/svg/icon-arrow-left.svg";
 import { GoToTop } from "./GoToTop";
 import { GoPrimitiveDot } from "react-icons/go";
+import { Modals } from "./Modals";
 
 export const Invoice = ({
-  filtered,
-  newFiltered,
-  setNewFiltered,
   formatMoney,
-  newArray,
   allInvoices,
   setAllInvoices,
+  showDelete,
+  setShowDelete,
+  showPaid,
+  setShowPaid,
 }) => {
   const [status, setStatus] = useState("");
   const [description, setDescription] = useState("");
@@ -149,7 +150,40 @@ export const Invoice = ({
           </div>
         </div>
       </section>
-
+      <div className="invoice-button-container">
+        <div className="invoice-button-wrapper">
+          <Link to="/">
+            <button
+              type="button"
+              className="btn btn-delete"
+              onClick={() => {
+                setAllInvoices(
+                  allInvoices.filter((allInvoice) => allInvoice.id !== id)
+                );
+                setShowDelete(true);
+              }}
+            >
+              Delete
+            </button>
+          </Link>
+          {(status === "pending" || status === "draft") && (
+            <button
+              type="button"
+              className="btn btn-paid"
+              onClick={() => {
+                setAllInvoices(
+                  allInvoices.map((x) =>
+                    x.id === id ? { ...x, status: "paid" } : x
+                  )
+                );
+                setShowPaid(true);
+              }}
+            >
+              Mark As Paid
+            </button>
+          )}
+        </div>
+      </div>
       <GoToTop />
     </section>
   );

@@ -19,12 +19,11 @@ export const Invoices = ({
   setShowForm,
   allInvoices,
   setAllInvoices,
-  showProfile,
-  setShowProfile,
+  setShowPaid,
+  setShowDelete,
+  // showDelete,
 }) => {
   const [showFilter, setShowFilter] = useState(false);
-  const [showDelete, setShowDelete] = useState(false);
-  const [showPaid, setShowPaid] = useState(false);
 
   const handleChange = (e) => {
     setFilter(e.target.value);
@@ -51,7 +50,6 @@ export const Invoices = ({
   const handleRemove = (id) => {
     setAllInvoices(allInvoices.filter((allInvoice) => allInvoice.id !== id));
     setShowDelete(true);
-    console.log(id);
   };
 
   //function to add the paid status to a pending or draft invoice
@@ -68,16 +66,9 @@ export const Invoices = ({
       : (document.title = `Invoices App`);
   });
   return (
-    <section
-      className="invoices"
-      onClick={() => {
-        if (showFilter) {
-          setShowFilter(false);
-        }
-      }}
-    >
+    <section className="invoices">
       {/* delete modal start */}
-      {showDelete && (
+      {/* {showDelete && (
         <div className="show-delete">
           <div className="delete-modal">
             <div>
@@ -88,30 +79,35 @@ export const Invoices = ({
               </p>
             </div>
             <div className="modal-delete-buttons">
-              <button
-                className="discard-btn"
-                onClick={() => {
-                  setShowDelete(false);
-                  window.location.reload(false);
-                }}
-              >
-                discard
-              </button>
-              <button
-                onClick={() => {
-                  localStorage.setItem("newArray", JSON.stringify(allInvoices));
-                  setShowDelete(false);
-                }}
-              >
-                delete
-              </button>
+              <div className="each-delete-button">
+                <button
+                  className="discard-btn"
+                  onClick={() => {
+                    setShowDelete(false);
+                    window.location.reload(false);
+                  }}
+                >
+                  discard
+                </button>
+                <button
+                  onClick={() => {
+                    localStorage.setItem(
+                      "newArray",
+                      JSON.stringify(allInvoices)
+                    );
+                    setShowDelete(false);
+                  }}
+                >
+                  delete
+                </button>
+              </div>
             </div>
           </div>
         </div>
-      )}
+      )} */}
       {/* delete modal end */}
       {/* paid modal start */}
-      {showPaid && (
+      {/* {showPaid && (
         <div className="show-paid">
           <div className="paid-modal">
             <div>
@@ -121,28 +117,33 @@ export const Invoices = ({
               </p>
             </div>
             <div className="modal-paid-buttons">
-              <button
-                className="discard-btn"
-                onClick={() => {
-                  setShowDelete(false);
-                  window.location.reload(false);
-                }}
-              >
-                discard
-              </button>
-              <button
-                className="confirm-button"
-                onClick={() => {
-                  localStorage.setItem("newArray", JSON.stringify(allInvoices));
-                  setShowPaid(false);
-                }}
-              >
-                confirm
-              </button>
+              <div className="each-paid-button">
+                <button
+                  className="discard-btn"
+                  onClick={() => {
+                    setShowDelete(false);
+                    window.location.reload(false);
+                  }}
+                >
+                  discard
+                </button>
+                <button
+                  className="confirm-button"
+                  onClick={() => {
+                    localStorage.setItem(
+                      "newArray",
+                      JSON.stringify(allInvoices)
+                    );
+                    setShowPaid(false);
+                  }}
+                >
+                  confirm
+                </button>
+              </div>
             </div>
           </div>
         </div>
-      )}
+      )} */}
       {/* paid modal end */}
       <Form
         showForm={showForm}
@@ -274,26 +275,28 @@ export const Invoices = ({
                 </div>
               </Link>
               <div className="invoices-button">
-                {(status === "pending" || status === "draft") && (
+                <div className="invoices-button-wrapper">
+                  {(status === "pending" || status === "draft") && (
+                    <button
+                      type="button"
+                      className="mark-as-paid"
+                      onClick={() => {
+                        handleNewStatus(id);
+                      }}
+                    >
+                      <VscCheck />
+                    </button>
+                  )}
                   <button
                     type="button"
-                    className="mark-as-paid"
+                    className="delete-invoice"
                     onClick={() => {
-                      handleNewStatus(id);
+                      handleRemove(id);
                     }}
                   >
-                    <VscCheck />
+                    <VscTrash />
                   </button>
-                )}
-                <button
-                  type="button"
-                  className="delete-invoice"
-                  onClick={() => {
-                    handleRemove(id);
-                  }}
-                >
-                  <VscTrash />
-                </button>
+                </div>
               </div>
             </div>
           );

@@ -4,19 +4,17 @@ import Sun from "./assets/svg/icon-sun.svg";
 import Avatar from "./assets/img/image-avatar.jpeg";
 import { FaExternalLinkAlt, FaGithub, FaGithubAlt } from "react-icons/fa";
 import { GoPrimitiveDot } from "react-icons/go";
+import { Link } from "react-router-dom";
 
-export const Header = ({
-  handleMode,
-  toggleMode,
-  setShowProfile,
-  showProfile,
-}) => {
+export const Header = ({ handleMode, setShowProfile, showProfile }) => {
   const [switchModeImg, setSwitchModeImg] = useState(false);
   return (
     <header>
-      <div className="logo-wrapper">
-        <h1>i</h1>
-      </div>
+      <Link to="/" className="logo-wrapper">
+        <div>
+          <h1>i</h1>
+        </div>
+      </Link>
       <img
         src={switchModeImg ? Sun : Moon}
         alt="moon"

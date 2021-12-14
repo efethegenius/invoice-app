@@ -13,6 +13,7 @@ import { Invoice } from "./Invoice";
 import { useState } from "react";
 import { TransitionGroup, CSSTransition } from "react-transition-group";
 import data from "./data.json";
+import { Modals } from "./Modals";
 
 function App() {
   const [toggleMode, setToggleMode] = useState(false);
@@ -20,6 +21,8 @@ function App() {
   const [invoiceLists, setInvoiceLists] = useState(data);
   const [showForm, setShowForm] = useState(false);
   const [showProfile, setShowProfile] = useState(false);
+  const [showDelete, setShowDelete] = useState(false);
+  const [showPaid, setShowPaid] = useState(false);
 
   const location = useLocation();
 
@@ -71,6 +74,13 @@ function App() {
         setShowProfile={setShowProfile}
         showProfile={showProfile}
       />
+      <Modals
+        allInvoices={allInvoices}
+        showDelete={showDelete}
+        setShowDelete={setShowDelete}
+        showPaid={showPaid}
+        setShowPaid={setShowPaid}
+      />
       <TransitionGroup>
         <CSSTransition timeout={200} classNames="fade" key={location.key}>
           <Switch location={location}>
@@ -91,6 +101,10 @@ function App() {
                 setShowForm={setShowForm}
                 allInvoices={allInvoices}
                 setAllInvoices={setAllInvoices}
+                showPaid={showPaid}
+                setShowPaid={setShowPaid}
+                showDelete={showDelete}
+                setShowDelete={setShowDelete}
               />
             </Route>
             <Route
@@ -105,6 +119,10 @@ function App() {
                   newArray={newArray}
                   allInvoices={allInvoices}
                   setAllInvoices={setAllInvoices}
+                  showDelete={showDelete}
+                  setShowDelete={setShowDelete}
+                  showPaid={showPaid}
+                  setShowPaid={setShowPaid}
                 />
               }
             ></Route>

@@ -39,9 +39,27 @@ body {
 .invoices-button {
   display: flex;
   align-items: center;
-  justify-content: right;
+  justify-content: center;
   flex-direction: row;
   width: 100%;
+  position: relative;
+  margin-top: 20px;
+}
+
+.invoices-button-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+  position: absolute;
+  right: 0;
+}
+
+.invoices-button-wrapper svg:hover {
+  transition: all ease-in-out 0.5s;
+}
+.invoices-button-wrapper svg:hover {
+  transform: scale(1.4);
 }
 
 .invoices-button button {
@@ -66,6 +84,8 @@ body {
   justify-content: center;
   flex-direction: column;
   position: relative;
+  /* min-height: calc(100vh - 80px);
+  background-color: red; */
 }
 
 .toggleMode {
@@ -93,6 +113,7 @@ header {
   height: 100%;
   justify-self: flex-start;
   border-radius: 0 20px 20px 0;
+  text-decoration: none !important;
 }
 .logo-wrapper h1 {
   color: white;
@@ -157,13 +178,19 @@ header {
   border-radius: 8px;
   padding: 15px 20px;
   position: relative;
-  width: 100%;
+  width: 90%;
   box-shadow: 3.1px 6.2px 8.5px rgba(0, 0, 0, 0.04),
     6.1px 12.3px 15.6px rgba(0, 0, 0, 0.034),
     9.5px 18.9px 22.1px rgba(0, 0, 0, 0.031),
     13.8px 27.6px 29.7px rgba(0, 0, 0, 0.029),
     21.2px 42.3px 41.7px rgba(0, 0, 0, 0.027),
     42px 84px 76px rgba(0, 0, 0, 0.023);
+  transition: all ease-in-out 0.5s;
+}
+.invoices-container:hover {
+  outline: 1px solid blue;
+  cursor: pointer;
+  transform: scale(1.03);
 }
 .show-paid {
   background-color: rgba(0, 0, 0, 0.324);
@@ -185,6 +212,7 @@ header {
   width: 100%;
   height: 100vh;
   top: 0;
+  left: 0;
   z-index: 8;
   display: flex;
   align-items: center;
@@ -222,10 +250,21 @@ header {
 .modal-paid-buttons {
   display: flex;
   align-items: center;
-  justify-content: right;
+  justify-content: center;
   flex-direction: row;
   width: 100%;
   margin-bottom: 10px;
+  position: relative;
+  margin-top: 20px;
+}
+.each-delete-button,
+.each-paid-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+  position: absolute;
+  right: 0;
 }
 .modal-delete-buttons button,
 .modal-paid-buttons button {
@@ -263,7 +302,6 @@ header {
 }
 .invoices-container-wrapper {
   width: 100%;
-  padding: 0 30px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -396,7 +434,7 @@ header {
 }
 .draft {
   color: rgb(55, 59, 83);
-  background-color: rgba(55, 59, 83, 0.06);
+  background-color: rgba(55, 59, 83, 0.256);
 }
 .invoices-header {
   display: grid;
@@ -426,6 +464,7 @@ header {
   justify-content: center;
   flex-direction: column;
   padding-bottom: 30px;
+  position: relative;
 }
 .invoice-status-wrapper {
   display: flex;
@@ -499,11 +538,50 @@ header {
 }
 .invoice-client-details {
   width: 100%;
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  justify-items: center;
+  display: flex;
   align-items: center;
+  justify-content: space-between;
+  flex-direction: row;
   margin-bottom: 30px;
+}
+
+.invoice-button-container {
+  background-color: red;
+  width: 90%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  position: relative;
+  margin-top: 20px;
+  max-width: 634px;
+  margin-bottom: 30px;
+}
+.invoice-button-wrapper {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+.btn-delete {
+  margin-right: 10px;
+  font-size: 0.75rem !important;
+  background-color: var(--light-red) !important;
+  padding-left: 20px !important;
+  padding-right: 20px !important;
+  transition: all ease-in-out 0.3s;
+}
+.btn-delete:hover {
+  opacity: 0.5;
+}
+.btn-paid:hover {
+  opacity: 0.5;
+}
+.btn-paid {
+  padding-left: 20px !important;
+  padding-right: 20px !important;
+  font-size: 0.75rem !important;
+  background-color: var(--light-blue) !important;
+  transition: all ease-in-out 0.3s;
 }
 .invoice-client-dates {
   width: 100%;
@@ -529,7 +607,7 @@ header {
 .bill-to-wrapper {
   width: 100%;
   display: flex;
-  align-items: flex-start;
+  /* align-items: flex-start; */
   justify-content: center;
   flex-direction: column;
 }
@@ -639,6 +717,8 @@ header {
   align-items: center;
   justify-content: center;
   flex-direction: column;
+  position: relative;
+  padding: 10px 0;
 }
 .form-background {
   background-color: rgba(0, 0, 0, 0.359);
@@ -670,6 +750,8 @@ header {
   justify-content: center;
   flex-direction: column;
   text-align: center;
+  margin-top: 60px;
+  padding: 40px;
 }
 .empty-invoice-notice h1 {
   margin-bottom: 10px;
@@ -685,7 +767,7 @@ header {
   color: var(--light-logo);
 }
 .profile-container {
-  background-color: rgba(0, 0, 0, 0.372);
+  background-color: rgba(0, 0, 0, 0.667);
   backdrop-filter: blur(5px);
   width: 100%;
   position: fixed;
@@ -713,6 +795,7 @@ header {
 .profile-wrapper h1 {
   font-size: 1.3rem;
   margin: 10px 0;
+  color: white;
 }
 .profile-wrapper a {
   margin: 10px 0;
@@ -793,6 +876,9 @@ header {
     justify-items: center;
     height: 100%;
   }
+  .invoices-button {
+    margin-top: unset;
+  }
 
   .invoices-total-wrapper {
     display: flex;
@@ -847,11 +933,7 @@ header {
     background: #ffffff;
     box-shadow: 20px 20px 60px #d9d9d9, -20px -20px 60px #ffffff;
   }
-  .invoices-container:hover {
-    outline: 1px solid blue;
-    cursor: pointer;
-    transform: scale(1.03);
-  }
+
   .invoices-header {
     max-width: 730px;
   }
@@ -873,5 +955,19 @@ header {
   }
   .invoice-email-wrapper {
     align-self: flex-start;
+  }
+}
+@media screen and (max-width: 281px) {
+  .invoice-details-wrapper {
+    padding-left: 5px;
+    padding-right: 5px;
+  }
+  .btn {
+    padding: 0 !important;
+    background-color: transparent !important;
+    font-size: 0.75rem !important;
+  }
+  .btn-send {
+    color: var(--dark) !important;
   }
 }

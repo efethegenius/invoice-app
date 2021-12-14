@@ -157,16 +157,21 @@ export const Form = ({
         showForm ? "invoices-form show-invoices-form" : "invoices-form"
       }
     >
-      <div className="invoices-form-header">
-        <h1>Create Invoice</h1>
-        <FaTimes
-          onClick={() => {
-            handleShowForm();
-            setFillInput(false);
-          }}
-        />
+      <div className="form-header-container">
+        <div className="invoices-form-header">
+          <h1>Create Invoice</h1>
+        </div>
+        {fillInput && (
+          <div className="fill-error-alert">
+            <p>
+              <FiAlertCircle />
+              All fields must be filled
+            </p>
+            <p>or save the invoice as a draft</p>
+          </div>
+        )}
       </div>
-      <form className="invoice-form">
+      <form className="invoice-form" id="invoice-form">
         <div className="form-bill-from">
           <h5>Bill From</h5>
           <div className="input full-input">
@@ -369,43 +374,37 @@ export const Form = ({
             />
           </div>
         </div>
-        {fillInput && (
-          <div className="fill-error-alert">
-            <p>
-              <FiAlertCircle />
-              All fields must be filled
-            </p>
-          </div>
-        )}
-        <div className="form-button-container">
-          <button
-            type="button"
-            className="btn btn-discard"
-            onClick={handleDiscard}
-          >
-            Discard
-          </button>
-          <button
-            type="submit"
-            className="btn btn-send"
-            onClick={(e) => {
-              handleSubmit(e);
-            }}
-          >
-            Save & send
-          </button>
-          <button
-            type="submit"
-            className="btn btn-draft"
-            onClick={(e) => {
-              handleDraft(e);
-              handleShowForm();
-            }}
-          >
-            Save as Draft
-          </button>
-        </div>
       </form>
+      <div className="form-button-container">
+        <button
+          type="button"
+          className="btn btn-discard"
+          onClick={handleDiscard}
+        >
+          Discard
+        </button>
+        <button
+          type="submit"
+          className="btn btn-send"
+          form="invoice-form"
+          onClick={(e) => {
+            handleSubmit(e);
+          }}
+        >
+          Save & send
+        </button>
+        <button
+          type="submit"
+          className="btn btn-draft"
+          form="invoice-form"
+          onClick={(e) => {
+            handleDraft(e);
+            handleShowForm();
+          }}
+        >
+          Save As Draft
+        </button>
+      </div>
     </section>
   );
 };

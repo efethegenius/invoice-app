@@ -7,18 +7,25 @@
   height: 100vh;
   z-index: 10;
   padding: 20px;
-  transition: all ease-in-out 1s;
+  transition: all ease-in-out 0.4s;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
   max-width: 750px;
 }
+.form-header-container {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
 .fill-error-alert {
   display: flex;
   align-items: center;
   justify-content: center;
-  flex-direction: row;
+  flex-direction: column;
   margin-bottom: 10px;
 }
 .fill-error-alert p {
@@ -43,6 +50,7 @@
   height: 100vh;
   max-width: 600px;
   overflow-x: hidden;
+  /* margin-bottom: 50px; */
 }
 .invoices-form h5 {
   margin-bottom: 20px;
@@ -140,6 +148,7 @@
   padding-left: 10px;
   font-family: "Spartan", sans-serif;
   font-weight: 500;
+  background-color: rgba(85, 85, 85, 0.03);
 }
 .invoices-form input:focus {
   outline: none !important;
@@ -223,7 +232,10 @@
   justify-content: space-between;
   flex-direction: row;
   margin-bottom: 20px;
+  margin-top: 10px;
+  margin-bottom: 80px;
   width: 90%;
+  max-width: 342px;
 }
 .btn {
   padding: 15px 10px;
@@ -231,7 +243,7 @@
   border-radius: 100px;
   font-weight: 600;
   color: white;
-  font-size: 0.75rem;
+  font-size: 0.6rem;
   font-family: "Spartan", sans-serif;
   cursor: pointer;
 }
