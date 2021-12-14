@@ -6,6 +6,8 @@ export const Modals = ({
   setShowDelete,
   showPaid,
   setShowPaid,
+  showClear,
+  setShowClear,
 }) => {
   return (
     <div>
@@ -37,6 +39,44 @@ export const Modals = ({
                       JSON.stringify(allInvoices)
                     );
                     setShowDelete(false);
+                  }}
+                >
+                  delete
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+      {/* delete modal end */}
+      {showClear && (
+        <div className="show-delete">
+          <div className="delete-modal">
+            <div>
+              <h1>Delete All Invoices?</h1>
+              <p>
+                Are you sure you want to delete all invoices? This action cannot
+                be undone.
+              </p>
+            </div>
+            <div className="modal-delete-buttons">
+              <div className="each-delete-button">
+                <button
+                  className="discard-btn"
+                  onClick={() => {
+                    setShowClear(false);
+                    window.location.reload(false);
+                  }}
+                >
+                  discard
+                </button>
+                <button
+                  onClick={() => {
+                    localStorage.setItem(
+                      "newArray",
+                      JSON.stringify(allInvoices)
+                    );
+                    setShowClear(false);
                   }}
                 >
                   delete

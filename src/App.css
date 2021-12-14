@@ -94,6 +94,28 @@ body {
   cursor: pointer;
 }
 
+.clear-invoices {
+  background-color: blue;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  width: 90%;
+  position: relative;
+  max-width: 730px;
+}
+
+.btn-clear {
+  background-color: transparent;
+  position: absolute;
+  right: 18px;
+  border-radius: 100px !important;
+  padding: 10px !important;
+  font-size: 1rem !important;
+  color: red !important;
+}
+
 header {
   background-color: var(--light-dark);
   width: 100%;

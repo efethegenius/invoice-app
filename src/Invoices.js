@@ -7,6 +7,7 @@ import { Form } from "./Form";
 import { GoPrimitiveDot } from "react-icons/go";
 import { VscCheck, VscTrash } from "react-icons/vsc";
 import Avatar from "./assets/img/image-avatar.jpeg";
+import { FaTrash } from "react-icons/fa";
 
 export const Invoices = ({
   filter,
@@ -21,7 +22,8 @@ export const Invoices = ({
   setAllInvoices,
   setShowPaid,
   setShowDelete,
-  // showDelete,
+  showClear,
+  setShowClear,
 }) => {
   const [showFilter, setShowFilter] = useState(false);
 
@@ -153,6 +155,21 @@ export const Invoices = ({
           </button>
         </div>
       </div>
+
+      {allInvoices.length >= 2 && (
+        <div className="clear-invoices">
+          <button
+            type="button"
+            className="btn btn-clear"
+            onClick={() => {
+              setAllInvoices([]);
+              setShowClear(!showClear);
+            }}
+          >
+            <FaTrash />
+          </button>
+        </div>
+      )}
       <section className="invoices-container-wrapper">
         {filteredInvoice.map((invoiceList) => {
           const {

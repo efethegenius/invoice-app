@@ -23,6 +23,7 @@ function App() {
   const [showProfile, setShowProfile] = useState(false);
   const [showDelete, setShowDelete] = useState(false);
   const [showPaid, setShowPaid] = useState(false);
+  const [showClear, setShowClear] = useState(false);
 
   const location = useLocation();
 
@@ -80,6 +81,8 @@ function App() {
         setShowDelete={setShowDelete}
         showPaid={showPaid}
         setShowPaid={setShowPaid}
+        showClear={showClear}
+        setShowClear={setShowClear}
       />
       <TransitionGroup>
         <CSSTransition timeout={200} classNames="fade" key={location.key}>
@@ -105,6 +108,8 @@ function App() {
                 setShowPaid={setShowPaid}
                 showDelete={showDelete}
                 setShowDelete={setShowDelete}
+                setShowClear={setShowClear}
+                showClear={showClear}
               />
             </Route>
             <Route
