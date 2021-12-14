@@ -16,11 +16,14 @@ export const Header = ({ handleMode, setShowProfile, showProfile }) => {
         </div>
       </Link>
       <img
-        src={switchModeImg ? Sun : Moon}
+        src={localStorage.getItem("toggle") === "enabled" ? Sun : Moon}
         alt="moon"
         className="toggleMode"
         onClick={() => {
           handleMode();
+          document.body.classList.contains("dark-mode")
+            ? localStorage.setItem("toggle", "enabled")
+            : localStorage.setItem("toggle", "disabled");
           setSwitchModeImg(!switchModeImg);
         }}
       />
