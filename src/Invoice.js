@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
-import data from "./data.json";
 import back from "./assets/svg/icon-arrow-left.svg";
 import { GoToTop } from "./GoToTop";
+import { GoPrimitiveDot } from "react-icons/go";
 
 export const Invoice = ({
   filtered,
@@ -10,6 +10,8 @@ export const Invoice = ({
   setNewFiltered,
   formatMoney,
   newArray,
+  allInvoices,
+  setAllInvoices,
 }) => {
   const [status, setStatus] = useState("");
   const [description, setDescription] = useState("");
@@ -28,12 +30,11 @@ export const Invoice = ({
   const [itemName, setItemName] = useState("");
   const [itemQuantity, setItemQuantity] = useState(0);
   const [itemPrice, setItemPrice] = useState(0);
-  const [total, setTotal] = useState(0);
 
   const { id } = useParams();
 
   useEffect(() => {
-    const newData = newArray.find((newFilter) => newFilter.id === id);
+    const newData = allInvoices.find((newFilter) => newFilter.id === id);
     setStatus(newData.status);
     setDescription(newData.description);
     setSenderStreet(newData.senderStreet);
@@ -48,29 +49,10 @@ export const Invoice = ({
     setPaymentDue(newData.paymentDue);
     setclientName(newData.clientName);
     setclientEmail(newData.clientEmail);
-    setTotal(newData.total);
     setItemName(newData.itemName);
     setItemQuantity(newData.itemQuantity);
     setItemPrice(newData.itemPrice);
-  }, []);
-
-  //   const total = items.reduce((currentTotal, item) => {
-  //     return item.total + currentTotal;
-  //   }, 0);
-  //   console.log(total);
-
-  const handlePaid = () => {
-    setStatus("paid");
-    // setNewFiltered(newFiltered);
-    console.log(status);
-    setNewFiltered(newFiltered);
-    console.log(newFiltered);
-  };
-
-  // const handleRemove = (id) => {
-  //   let newList = allNotes.filter((allNote) => allNote.id !== id);
-  //   setAllNotes(newList);
-  // };
+  }, [allInvoices, id]);
 
   return (
     <section className="invoice">
@@ -92,7 +74,10 @@ export const Invoice = ({
               : "invoices-status-style draft"
           }
         >
-          <p>{status}</p>
+          <p>
+            <GoPrimitiveDot />
+            {status}
+          </p>
         </div>
       </div>
 
@@ -112,38 +97,47 @@ export const Invoice = ({
             <p>{senderCountry}</p>
           </div>
         </div>
-
-        <div className="invoice-client-details">
-          <div className="invoice-client-dates">
-            <div className="invoice-date">
-              <p>Invoice Date</p>
-              <h5>{createdAt}</h5>
+        <div className="client-details-wrapper">
+          <div className="invoice-client-details">
+            <div className="invoice-client-dates">
+              <div className="invoice-date">
+                <p>Invoice Date</p>
+                <h5>{createdAt}</h5>
+              </div>
+              <div className="invoice-payment-due">
+                <p>Payment due</p>
+                <h5>{paymentDue}</h5>
+              </div>
             </div>
-            <div className="invoice-payment-due">
-              <p>Payment due</p>
-              <h5>{paymentDue}</h5>
+            <div className="bill-to-wrapper">
+              <p>Bill To</p>
+              <h5 className="invoice-client-name">{clientName}</h5>
+              <div className="invoice-client-address">
+                <p>{clientStreet}</p>
+                <p>{clientCity}</p>
+                <p>{clientPostCode}</p>
+                <p>{clientCountry}</p>
+              </div>
             </div>
           </div>
-          <div className="bill-to-wrapper">
-            <p>Bill To</p>
-            <h5 className="invoice-client-name">{clientName}</h5>
-            <div className="invoice-client-address">
-              <p>{clientStreet}</p>
-              <p>{clientCity}</p>
-              <p>{clientPostCode}</p>
-              <p>{clientCountry}</p>
-            </div>
+          <div className="invoice-email-wrapper">
+            <p>Sent to</p>
+            <h5>{clientEmail}</h5>
           </div>
-        </div>
-        <div className="invoice-email-wrapper">
-          <p>Sent to</p>
-          <h5>{clientEmail}</h5>
         </div>
 
         <div className="invoice-total-wrapper">
           <div className="invoice-subtotal-container">
+            <div className="invoice-subtotal  invoice-subtotal-header">
+              <p>Item Name</p>
+              <p>QTY.</p>
+              <p>Price</p>
+              <p>Total</p>
+            </div>
             <div className="invoice-subtotal">
               <h5>{itemName}</h5>
+              <h5 className="qp">{itemQuantity}</h5>
+              <h5 className="qp">£{formatMoney(itemPrice)}</h5>
               <h5>£{formatMoney(itemQuantity * itemPrice)}</h5>
             </div>
           </div>
@@ -155,13 +149,7 @@ export const Invoice = ({
           </div>
         </div>
       </section>
-      <div className="invoice-footer-buttons">
-        <button type="button">Edit</button>
-        <button type="button">Delete</button>
-        <button type="button" onClick={handlePaid}>
-          Mark as paid
-        </button>
-      </div>
+
       <GoToTop />
     </section>
   );

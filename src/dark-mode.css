@@ -30,6 +30,8 @@
 .dark-mode .invoices-container {
   transition: all ease-in-out 0.3s;
   background-color: var(--light-dark);
+  /* background: linear-gradient(145deg, #e6e6e6, #ffffff); */
+  box-shadow: 20px 20px 60px #00000027, -20px -20px 60px #0000002b;
 }
 .dark-mode .invoice-details-wrapper {
   background-color: var(--light-dark);
@@ -84,4 +86,10 @@
 .dark-mode .btn-discard {
   background-color: #888eb0;
   color: #222b5c;
+}
+.dark-mode .draft {
+  color: white !important;
+}
+.dark-mode .profile-wrapper h1 {
+  color: var(--light-blue);
 }

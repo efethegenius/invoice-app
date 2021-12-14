@@ -1,10 +1,10 @@
 .invoices-form {
   background-color: white;
-  position: absolute;
+  position: fixed;
   top: 0;
   left: -100%;
   width: 100%;
-  /* height: 100%; */
+  height: 100vh;
   z-index: 10;
   padding: 20px;
   transition: all ease-in-out 1s;
@@ -12,6 +12,24 @@
   align-items: center;
   justify-content: center;
   flex-direction: column;
+  max-width: 750px;
+}
+.fill-error-alert {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+  margin-bottom: 10px;
+}
+.fill-error-alert p {
+  font-size: 0.75rem;
+  color: red;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.fill-error-alert p svg {
+  margin-right: 5px;
 }
 .show-invoices-form {
   left: 0;
@@ -19,9 +37,12 @@
 .invoice-form {
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: top;
   flex-direction: column;
   width: 100%;
+  height: 100vh;
+  max-width: 600px;
+  overflow-x: hidden;
 }
 .invoices-form h5 {
   margin-bottom: 20px;
@@ -32,7 +53,14 @@
 
 .invoices-form-header {
   margin-bottom: 30px;
-  align-self: flex-start;
+  /* background-color: red; */
+  width: 90%;
+  /* padding: 0 20px; */
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-direction: row;
+  /* align-self: flex-start; */
 }
 .invoices-form label {
   font-size: 0.75rem;
@@ -54,6 +82,7 @@
   justify-content: center;
   flex-direction: column;
   margin-top: 20px;
+  padding: 0 20px;
 }
 .form-bill-from {
   width: 100%;
@@ -62,6 +91,10 @@
   justify-content: center;
   flex-direction: column;
   margin-top: 30px;
+  padding: 0 20px;
+}
+.form-footer {
+  padding: 0 20px;
 }
 .input input {
   margin-top: 6px;
@@ -81,6 +114,7 @@
   width: 95%;
   justify-self: right;
 }
+
 .city-input {
   width: 95%;
   justify-self: left;
@@ -184,11 +218,11 @@
   padding-left: 10px;
 }
 .form-button-container {
-  /* background-color: tomato; */
   display: flex;
   align-items: center;
   justify-content: space-between;
   flex-direction: row;
+  margin-bottom: 20px;
   width: 90%;
 }
 .btn {
@@ -199,6 +233,7 @@
   color: white;
   font-size: 0.75rem;
   font-family: "Spartan", sans-serif;
+  cursor: pointer;
 }
 .btn-discard {
   background-color: rgb(249, 250, 254);
@@ -210,4 +245,31 @@
 .btn-draft {
   background-color: rgb(54, 59, 83);
   color: rgb(136, 142, 176);
+}
+.invoice-form::-webkit-scrollbar {
+  width: 5px;
+}
+
+.invoice-form::-webkit-scrollbar-track {
+  background: #ffffff1a;
+  border-radius: 10px;
+}
+
+.invoice-form::-webkit-scrollbar-thumb {
+  background: #00000056;
+  border-radius: 10px;
+}
+
+.invoice-form::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+@media screen and (min-width: 600px) {
+  .invoices-form {
+    border-radius: 0 20px 20px 0;
+    /* box-shadow: 4.2px 1.1px 4.7px rgba(0, 0, 0, 0.003),
+      9.9px 2.6px 8.3px rgba(0, 0, 0, 0.009),
+      18.6px 4.9px 13.2px rgba(0, 0, 0, 0.018),
+      35.7px 9.3px 25.2px rgba(0, 0, 0, 0.029),
+      92px 24px 80px rgba(0, 0, 0, 0.05); */
+  }
 }

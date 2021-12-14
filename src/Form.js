@@ -1,13 +1,14 @@
 import React, { useState } from "react";
-import data from "./data.json";
 import clear from "./assets/svg/icon-delete.svg";
+import { FaTimes } from "react-icons/fa";
+import { FiAlertCircle } from "react-icons/fi";
 export const Form = ({
   showForm,
-  setShowForm,
   newFiltered,
   setNewFiltered,
   handleShowForm,
   newArray,
+  allInvoices,
 }) => {
   const [newInvoice, setNewInvoice] = useState({
     senderStreet: "",
@@ -28,7 +29,9 @@ export const Form = ({
     itemPrice: "",
     total: 0,
   });
+  const [fillInput, setFillInput] = useState(false);
 
+  // Generating a unique id for each invoice
   let uniqueId = Math.random().toString(36).substr(2, 6);
 
   const handleOnChange = (e) => {
@@ -82,11 +85,12 @@ export const Form = ({
       });
 
       // storing the array in the local storage
-      newArray.push(newSlip);
-      localStorage.setItem("newArray", JSON.stringify(newArray));
-      console.log(newArray);
+      allInvoices.unshift(newSlip);
+      localStorage.setItem("newArray", JSON.stringify(allInvoices));
+      setFillInput(false);
+      handleShowForm();
     } else {
-      console.log("fill all inputs");
+      setFillInput(true);
     }
   };
   const handleDraft = (e) => {
@@ -115,9 +119,10 @@ export const Form = ({
       itemQuantity: "",
       itemPrice: "",
     });
-    newArray.push(newSlip);
-    localStorage.setItem("newArray", JSON.stringify(newArray));
+    allInvoices.unshift(newSlip);
+    localStorage.setItem("newArray", JSON.stringify(allInvoices));
     console.log(newArray);
+    setFillInput(false);
   };
 
   const handleDiscard = () => {
@@ -140,8 +145,10 @@ export const Form = ({
       itemPrice: "",
     });
     handleShowForm();
+    setFillInput(false);
   };
-  const handleClear = () => {
+  const handleClear = (e) => {
+    e.preventDefault();
     setNewInvoice({ itemName: "", itemQuantity: "", itemPrice: "" });
   };
   return (
@@ -150,7 +157,15 @@ export const Form = ({
         showForm ? "invoices-form show-invoices-form" : "invoices-form"
       }
     >
-      <h1 className="invoices-form-header">Create Invoice</h1>
+      <div className="invoices-form-header">
+        <h1>Create Invoice</h1>
+        <FaTimes
+          onClick={() => {
+            handleShowForm();
+            setFillInput(false);
+          }}
+        />
+      </div>
       <form className="invoice-form">
         <div className="form-bill-from">
           <h5>Bill From</h5>
@@ -180,7 +195,7 @@ export const Form = ({
             <div className="input post-code-input">
               <label htmlFor="senderPostCode"> Post Code</label>
               <input
-                type="number"
+                type="text"
                 id="senderPostCode"
                 name="senderPostCode"
                 value={newInvoice.senderPostCode}
@@ -251,7 +266,7 @@ export const Form = ({
             <div className="input post-code-input">
               <label htmlFor="clientPostCode"> Post Code</label>
               <input
-                type="number"
+                type="text"
                 id="clientPostCode"
                 name="clientPostCode"
                 value={newInvoice.clientPostCode}
@@ -284,7 +299,7 @@ export const Form = ({
               />
             </div>
             <div className="input payment-due-input">
-              <label htmlFor="paymentDue"> Payment Terms</label>
+              <label htmlFor="paymentDue"> Payment Due</label>
               <input
                 type="date"
                 id="paymentDue"
@@ -307,7 +322,7 @@ export const Form = ({
             />
           </div>
         </div>
-        <div className="input">
+        <div className="input form-footer">
           <label htmlFor="itemName">Item Name</label>
           <input
             type="text"
@@ -354,6 +369,14 @@ export const Form = ({
             />
           </div>
         </div>
+        {fillInput && (
+          <div className="fill-error-alert">
+            <p>
+              <FiAlertCircle />
+              All fields must be filled
+            </p>
+          </div>
+        )}
         <div className="form-button-container">
           <button
             type="button"
@@ -367,7 +390,6 @@ export const Form = ({
             className="btn btn-send"
             onClick={(e) => {
               handleSubmit(e);
-              handleShowForm();
             }}
           >
             Save & send
